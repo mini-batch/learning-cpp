@@ -2,6 +2,7 @@
 #define TOKEN_H
 
 #include <string>
+#include <iostream>
 
 
 // chars for token.kind to indicate type of token
@@ -32,9 +33,10 @@ struct Token {
 class Token_stream {
     bool full;  // Indicates whether the buffer is full
     Token buffer;  // Contains a Token which is to be read next
+    std::istream& is;
 public:
     // Initialise empty stream
-    Token_stream() :full(0), buffer(0) { }
+    Token_stream(std::istream& i) :is(i), full(0), buffer(0) { }
 
     Token get();
     void unget(Token t) { buffer = t; full = true; };

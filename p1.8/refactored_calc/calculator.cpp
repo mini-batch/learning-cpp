@@ -63,9 +63,6 @@ bool is_declared(std::string s)
 }
 
 
-Token_stream ts;
-
-
 double expression(Token_stream& ts);
 
 
@@ -195,7 +192,7 @@ double statement(Token_stream& ts)
 }
 
 
-void clean_up_mess()
+void clean_up_mess(Token_stream& ts)
 {
 	ts.ignore(print);
 }
@@ -216,7 +213,7 @@ void calculate(Token_stream& ts)
 	}
 	catch (std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
-		clean_up_mess();
+		clean_up_mess(ts);
 	}
 }
 
@@ -224,6 +221,7 @@ void calculate(Token_stream& ts)
 int main()
 
 try {
+	Token_stream ts {std::cin};
 	var_names.push_back(Variable("k", 1000));
 	calculate(ts);
 	return 0;
